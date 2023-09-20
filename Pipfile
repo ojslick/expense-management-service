@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+starlette = "*"
+sqlalchemy = "*"
+alembic = "*"
+requests = "*"
+cryptography = "*"
+jwt = "*"
+pyjwt = "*"
+casbin = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
+python_full_version = "3.7.16"

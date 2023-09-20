@@ -1,0 +1,137 @@
+openapi: 3.0.0
+info:
+  title: Expense Management Service API
+  description: API specification for managing user expenses.
+  version: 1.0.0
+
+paths:
+
+  /expenses:
+    post:
+      summary: Create a new expense.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense'
+      responses:
+        '201':
+          description: Expense created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '400':
+          description: Invalid input.
+
+    get:
+      summary: Retrieve all expenses for a user.
+      parameters:
+        - in: query
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of user's expenses.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Expense'
+        '404':
+          description: User not found.
+
+  /expenses/{expenseId}:
+    get:
+      summary: Retrieve a specific expense.
+      parameters:
+        - in: path
+          name: expenseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Specific expense details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '404':
+          description: Expense not found.
+
+    put:
+      summary: Update a specific expense.
+      parameters:
+        - in: path
+          name: expenseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense'
+      responses:
+        '200':
+          description: Expense updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '400':
+          description: Invalid input.
+        '404':
+          description: Expense not found.
+
+    delete:
+      summary: Delete a specific expense.
+      parameters:
+        - in: path
+          name: expenseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Expense deleted successfully.
+        '404':
+          description: Expense not found.
+
+components:
+  schemas:
+    Expense:
+      type: object
+      properties:
+        expenseId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        categoryId:
+          type: string
+          format: uuid
+        amount:
+          type: number
+          format: float
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+      required:
+        - userId
+        - categoryId
+        - amount
+        - date
