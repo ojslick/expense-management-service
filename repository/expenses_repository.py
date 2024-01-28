@@ -14,17 +14,15 @@ class ExpensesRepository:
     def _get(self, id, model, **filters):
         return self.session.query(model).filter(model.id == str(id)).first()
 
-    def get(self, expense_id, **filters):
-        record = self._get(id=expense_id, model=ExpenseModel, **filters)
+    def get(self, expense_id):
+        record = self._get(id=expense_id, model=ExpenseModel)
         if record is not None:
             return record.dict()
 
-    def list(self, limit=None, **filters):
+    def list(self, **filters):
         query = self.session.query(ExpenseModel)
         if filters:
             query = query.filter_by(**filters)
-        if limit:
-            query = query.limit(limit)
         return [record.dict() for record in query.all()]
 
     def update(self, expense_id, expense, **filters):

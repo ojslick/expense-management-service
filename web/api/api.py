@@ -39,9 +39,7 @@ def get_expenses(request: Request, limit: Optional[int] = None):
     with UnitOfWork() as unit_of_work:
         repository = ExpensesRepository(unit_of_work.session)
         service = ExpensesService(repository)
-        expenses = service.list_expenses(
-            limit=limit, user_id=request.state.user_details["user_id"]
-        )
+        expenses = service.list_expenses(user_id=request.state.user_details["user_id"])
         return {"expenses": expenses}
 
 
@@ -82,7 +80,7 @@ def update_expense(request: Request, expense_id: UUID, payload: CreateExpenseSch
             expense = service.update_expense(
                 expense_id,
                 user_id=request.state.user_details["user_id"],
-                _expense=payload.dict(),
+                _expense=payload.model_dump(),
             )
             unit_of_work.commit()
             return expense
@@ -162,29 +160,6 @@ def update_category(
                 )
                 unit_of_work.commit()
                 return category
-        else:
-            raise HTTPException(
-                status_code=HTTP_403_FORBIDDEN,
-                detail="Only admin users can access this endpoint",
-            )
-    except ExpenseNotFoundError as e:
-        raise HTTPException(status_code=HTTP_404_NOT_FOUND, detail=e.message)
-
-
-@app.delete(
-    "/expense-categories/{category_id}",
-    status_code=HTTP_204_NO_CONTENT,
-    response_class=JSONResponse,
-)
-def delete_category(request: Request, category_id: UUID):
-    try:
-        if request.state.user_details["user_role"] == "admin":
-            with UnitOfWork() as unit_of_work:
-                repository = ExpensesRepository(unit_of_work.session)
-                service = ExpensesService(repository)
-                service.delete_category(category_id)
-                unit_of_work.commit()
-                return
         else:
             raise HTTPException(
                 status_code=HTTP_403_FORBIDDEN,

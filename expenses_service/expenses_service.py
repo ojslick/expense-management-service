@@ -8,12 +8,17 @@ class ExpensesService:
     def add_expense(self, user_id, expense):
         return self.expenses_repository.add(expense, user_id)
 
-    def get_expense(self, expense_id, **filters):
-        expense = self.expenses_repository.get(expense_id, **filters)
+    def get_expense(
+        self,
+        expense_id,
+    ):
+        expense = self.expenses_repository.get(
+            expense_id,
+        )
         return expense
 
-    def list_expenses(self, limit, **filters):
-        return self.expenses_repository.list(limit, **filters)
+    def list_expenses(self, **filters):
+        return self.expenses_repository.list(**filters)
 
     def update_expense(self, expense_id, _expense, **filters):
         expense = self.expenses_repository.get(expense_id, **filters)

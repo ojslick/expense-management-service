@@ -11,11 +11,15 @@ sqlalchemy = "*"
 alembic = "*"
 requests = "*"
 cryptography = "*"
-jwt = "*"
 pyjwt = "*"
 casbin = "*"
 
 [dev-packages]
+dredd-hooks = "*"
+pytest = "*"
+schemathesis = "*"
+httpx = "*"
+hypothesis-jsonschema = "*"
 
 [requires]
 python_version = "3.7"

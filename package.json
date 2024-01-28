@@ -1,0 +1,22 @@
+{
+  "name": "expense_management_service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ojslick/expense-management-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ojslick/expense-management-service/issues"
+  },
+  "homepage": "https://github.com/ojslick/expense-management-service#readme",
+  "dependencies": {
+    "dredd": "^14.1.0"
+  }
+}

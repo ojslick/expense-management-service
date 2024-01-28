@@ -124,7 +124,7 @@ class GetExpenseSchema(CreateExpenseSchema):
     user_id: str
     created_at: datetime
     updated_at: datetime
-    category: GetExpenseCategorySchema
+    category: Optional[GetExpenseCategorySchema] = None
 
     class Config:
         extra = Extra.forbid

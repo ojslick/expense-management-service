@@ -1,7 +1,7 @@
 import os
 
 from fastapi import FastAPI
-from jwt.exceptions import (
+from jwt import (
     ExpiredSignatureError,
     ImmatureSignatureError,
     InvalidAlgorithmError,
@@ -100,5 +100,5 @@ from web.api.api import app as api
 
 app.include_router(api, prefix="/api/v1")
 
-if __name__ == "__app__":
+if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
