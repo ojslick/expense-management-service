@@ -280,7 +280,13 @@ info:
   description: API for managing expenses
   title: Expenses API
   version: 1.0.0
+
 openapi: 3.0.0
+
+servers:
+  -url: k8s-expensem-expensem-9529348a37-1547006987.us-west-1.elb.amazonaws.com
+  description: ALB's hostname
+
 paths:
   /api/v1/expense-categories:
     get:

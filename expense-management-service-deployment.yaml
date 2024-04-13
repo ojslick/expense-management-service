@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-management-service
+  namespace: expense-management-service
+  labels:
+    app: expense-management-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expense-management-service
+  template:
+    metadata:
+      labels:
+        app: expense-management-service
+    spec:
+      containers:
+      - name: expense-management-service
+        image: 246299324052.dkr.ecr.us-west-1.amazonaws.com/expense-management-service:1.2
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: db-credentials
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"

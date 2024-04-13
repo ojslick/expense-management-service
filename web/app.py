@@ -1,5 +1,3 @@
-import os
-
 from fastapi import FastAPI
 from jwt import (
     ExpiredSignatureError,
@@ -37,13 +35,10 @@ app = FastAPI(
 
 
 class AuthoriseRequestMiddleware(BaseHTTPMiddleware):
+
     async def dispatch(
         self, request: Request, call_next: RequestResponseEndpoint
     ) -> Response:
-        if os.getenv("AUTH_ON", "False") != "True":
-            request.state.user_details = "test"
-            return await call_next(request)
-
         if request.url.path in [
             "/expenses/docs",
             "/expenses/openapi.json",

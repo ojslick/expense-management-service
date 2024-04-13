@@ -13,6 +13,7 @@ requests = "*"
 cryptography = "*"
 pyjwt = "*"
 casbin = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 dredd-hooks = "*"
@@ -20,6 +21,7 @@ pytest = "*"
 schemathesis = "*"
 httpx = "*"
 hypothesis-jsonschema = "*"
+awscli = "*"
 
 [requires]
 python_version = "3.7"

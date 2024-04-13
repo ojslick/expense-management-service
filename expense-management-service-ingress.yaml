@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: expense-management-service-ingress
+  namespace: expense-management-service
+  annotations:
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /api/v1/expenses
+            pathType: Prefix
+            backend:
+              service:
+                name: expense-management-service
+                port:
+                  number: 80
+          - path: /api/v1/expense-categories
+            pathType: Prefix
+            backend:
+              service:
+                name: expense-management-service
+                port:
+                  number: 80

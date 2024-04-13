@@ -1,10 +1,16 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+DB_URL = os.getenv("DB_URL")
+print(f"DB_URL: {DB_URL}")
+
+assert DB_URL is not None, "DB_URL environment variable needed"
 
 
 class UnitOfWork:
     def __init__(self):
-        self.session_maker = sessionmaker(bind=create_engine("sqlite:///expenses.db"))
+        self.session_maker = sessionmaker(bind=create_engine(DB_URL))
 
     def __enter__(self):
         self.session = self.session_maker()

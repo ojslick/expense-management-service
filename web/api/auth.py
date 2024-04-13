@@ -1,10 +1,11 @@
 from pathlib import Path
 import jwt
-from cryptography.x509 import load_pem_x509_certificate
 
-public_key_text = (Path(__file__).parent / "../../../../public_key.pem").read_text()
-public_key = load_pem_x509_certificate(public_key_text.encode()).public_key()
+from cryptography.hazmat.primitives import serialization
 
+public_key_text = (Path(__file__).parent / "../../public_key.pem").read_text()
+
+public_key = serialization.load_pem_public_key(public_key_text.encode())
 
 def decode_and_validate_token(access_token):
     """

@@ -19,24 +19,25 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # Create a new temporary table with the new structure
-    op.create_table(
-        "temp_category",
-        sa.Column("id", sa.String, primary_key=True),
-        sa.Column("name", sa.String),
-        sa.Column("description", sa.String),
-        sa.Column("created_at", sa.DateTime),
-        sa.Column("updated_at", sa.DateTime),
-    )
+    # # Create a new temporary table with the new structure
+    # op.create_table(
+    #     "temp_category",
+    #     sa.Column("id", sa.String, primary_key=True),
+    #     sa.Column("name", sa.String),
+    #     sa.Column("description", sa.String),
+    #     sa.Column("created_at", sa.DateTime),
+    #     sa.Column("updated_at", sa.DateTime),
+    # )
 
-    # Copy data from the old table to the new table
-    op.execute("INSERT INTO temp_category SELECT * FROM category;")
+    # # Copy data from the old table to the new table
+    # op.execute("INSERT INTO temp_category SELECT * FROM category;")
 
-    # Drop the old table
-    op.drop_table("category")
+    # # Drop the old table
+    # op.drop_table("category")
 
-    # Rename the new table to the old table's name
-    op.rename_table("temp_category", "category")
+    # # Rename the new table to the old table's name
+    # op.rename_table("temp_category", "category")
+    pass
 
 
 def downgrade() -> None:
